@@ -106,6 +106,7 @@ fn main() -> anyhow::Result<()> {
         &mut display,
     )
     .unwrap();
+    display.flush().unwrap();
 
     loop {
         select! {
@@ -117,6 +118,8 @@ fn main() -> anyhow::Result<()> {
                 UIEvent::SetUp | UIEvent::SetDown => {}
             }
         };
+
+        display.clear_buffer();
         ui::draw(
             *up_time.lock().unwrap(),
             *down_time.lock().unwrap(),
@@ -124,5 +127,6 @@ fn main() -> anyhow::Result<()> {
             &mut display,
         )
         .unwrap();
+        display.flush().unwrap();
     }
 }

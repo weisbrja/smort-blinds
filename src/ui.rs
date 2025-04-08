@@ -43,14 +43,12 @@ pub fn setup_display<'d>(
     display
 }
 
-type OledDisplay<'d> = Ssd1306<I2CInterface<I2cDriver<'d>>, DisplaySize128x32, BufferedGraphicsMode<DisplaySize128x32>>;
-
-pub fn draw<'d>(
+pub fn draw<D: DrawTarget<Color = BinaryColor>>(
     up_time: Time,
     down_time: Time,
     blinds_action: Option<impl AsRef<str>>,
-    display: &mut OledDisplay<'d>,
-) -> Result<(), <OledDisplay<'d> as DrawTarget>::Error> {
+    display: &mut D,
+) -> Result<(), D::Error> {
     let font = MonoTextStyleBuilder::new()
         .font(&FONT_5X8)
         .text_color(BinaryColor::On)
@@ -59,8 +57,6 @@ pub fn draw<'d>(
     let stroke = PrimitiveStyle::with_stroke(BinaryColor::On, 1);
 
     let time_format = time::format_description::parse_owned::<2>("[hour]:[minute]").unwrap();
-
-    display.clear_buffer();
 
     let up_symbol =
         Triangle::new(Point::new(2, 1), Point::new(0, 6), Point::new(4, 6)).into_styled(fill);
@@ -107,8 +103,6 @@ pub fn draw<'d>(
         );
         blinds_action_ui.draw(display)?;
     }
-
-    display.flush()?;
 
     Ok(())
 }

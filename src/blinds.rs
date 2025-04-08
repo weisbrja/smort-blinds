@@ -81,8 +81,7 @@ pub fn action_timers(
                 // update up time
                 *up_time.as_ref().lock().unwrap() = time;
 
-                // restart up timer
-                let duration = util::duration_until(time);
+                // set new up timer
                 up_timer.after(duration).unwrap();
             }
             BlindsTime::SetDown(time) => {
@@ -92,7 +91,7 @@ pub fn action_timers(
                 // update down time
                 *down_time.as_ref().lock().unwrap() = time;
 
-                // restart down timer
+                // set new down timer
                 down_timer.after(duration).unwrap();
             }
         }
