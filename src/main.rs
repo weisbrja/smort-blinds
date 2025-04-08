@@ -57,9 +57,9 @@ fn main() -> anyhow::Result<()> {
     // Europe/Berlin
     timezone::set_timezone("CET-1CEST,M3.5.0/2,M10.5.0/3");
 
-    let (action_tx, action_rx) = bounded::<BlindsAction>(1);
-    let (time_tx, time_rx) = bounded::<BlindsTime>(1);
-    let (ui_tx, ui_event_rx) = bounded::<UIEvent>(1);
+    let (action_tx, action_rx) = bounded::<BlindsAction>(5);
+    let (time_tx, time_rx) = bounded::<BlindsTime>(5);
+    let (ui_tx, ui_event_rx) = bounded::<UIEvent>(5);
 
     let up_time = Arc::new(Mutex::new(Time::from_hms(7, 0, 0)?));
     let down_time = Arc::new(Mutex::new(Time::from_hms(18, 0, 0)?));
