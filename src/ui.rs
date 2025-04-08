@@ -62,19 +62,19 @@ pub fn draw<D: DrawTarget<Color = BinaryColor>>(
         Triangle::new(Point::new(2, 1), Point::new(0, 6), Point::new(4, 6)).into_styled(fill);
     up_symbol.draw(display)?;
 
-    let clock_symbol = Circle::new(Point::new(95, 1), 6).into_styled(stroke);
+    let clock_symbol = Circle::new(Point::new(94, 1), 6).into_styled(stroke);
 
     let up_time = up_time.format(&time_format).unwrap();
-    let up_time_ui = Text::with_baseline(&up_time, Point::new(7, 0), font, Baseline::Top);
+    let up_time_ui = Text::with_baseline(&up_time, Point::new(8, 0), font, Baseline::Top);
     up_time_ui.draw(display)?;
 
     let down_symbol = Triangle::new(Point::new(0, 1), Point::new(2, 6), Point::new(4, 1))
-        .translate_mut(Point::new(40, 0))
+        .translate_mut(Point::new(41, 0))
         .into_styled(fill);
     down_symbol.draw(display)?;
 
     let down_time = down_time.format(&time_format).unwrap();
-    let down_time_ui = Text::with_baseline(&down_time, Point::new(47, 0), font, Baseline::Top);
+    let down_time_ui = Text::with_baseline(&down_time, Point::new(49, 0), font, Baseline::Top);
     down_time_ui.draw(display)?;
 
     let current_time = OffsetDateTime::now_local()
