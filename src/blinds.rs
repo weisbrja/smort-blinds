@@ -69,8 +69,9 @@ pub fn action_timers(
 
     // init down timer
     log::info!("Initializing down timer");
-    let duration = util::duration_until(*down_time.as_ref().lock().unwrap());
-    down_timer.after(duration).unwrap();
+    down_timer
+        .after(util::duration_until(*down_time.as_ref().lock().unwrap()))
+        .unwrap();
 
     for msg in time_rx {
         match msg {
@@ -82,7 +83,7 @@ pub fn action_timers(
                 *up_time.as_ref().lock().unwrap() = time;
 
                 // set new up timer
-                up_timer.after(duration).unwrap();
+                up_timer.after(util::duration_until(time)).unwrap();
             }
             BlindsTime::SetDown(time) => {
                 log::info!("Setting new down timer");
@@ -92,7 +93,7 @@ pub fn action_timers(
                 *down_time.as_ref().lock().unwrap() = time;
 
                 // set new down timer
-                down_timer.after(duration).unwrap();
+                down_timer.after(util::duration_until(time)).unwrap();
             }
         }
     }
