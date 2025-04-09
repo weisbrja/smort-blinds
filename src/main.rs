@@ -31,8 +31,8 @@ fn main() -> anyhow::Result<()> {
 
     // init display
     let i2c = peripherals.i2c0;
-    let sda = peripherals.pins.gpio21;
-    let scl = peripherals.pins.gpio20;
+    let sda = peripherals.pins.gpio1;
+    let scl = peripherals.pins.gpio0;
     let mut display = ui::setup_display(i2c, sda, scl);
 
     // connect wifi
@@ -83,8 +83,8 @@ fn main() -> anyhow::Result<()> {
     });
 
     thread::spawn({
-        let up_pin = PinDriver::output(peripherals.pins.gpio0).unwrap();
-        let down_pin = PinDriver::output(peripherals.pins.gpio1).unwrap();
+        let up_pin = PinDriver::output(peripherals.pins.gpio20).unwrap();
+        let down_pin = PinDriver::output(peripherals.pins.gpio21).unwrap();
 
         let down_time = down_time.clone();
         let up_time = up_time.clone();
